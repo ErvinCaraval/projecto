@@ -1,0 +1,6 @@
+# Usa la imagen base de pgAdmin 4
+FROM dpage/pgadmin4
+
+# Configura las variables de entorno para el correo electrónico y la contraseña predeterminados
+ENV PGADMIN_DEFAULT_EMAIL=ervin.caravali@correounivalle.edu.co
+ENV PGADMIN_DEFAULT_PASSWORD=Ec94

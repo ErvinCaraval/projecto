@@ -1,0 +1,56 @@
+version: '3'
+
+services:
+  web:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    image: ervincaravaliibarra/galeria-6:latest
+    restart: always
+    command: sh -c "sleep 10 && python manage.py runserver 0.0.0.0:8000"
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/code
+    depends_on:
+      - db
+    environment:
+      - DB_HOST=db
+      - DB_NAME=projecto
+      - DB_USER=postgres
+      - DB_PASSWORD=Ec94
+    stdin_open: true
+    tty: true
+
+  db:
+    build:
+      context: .
+      dockerfile: Dockerfile.db
+    image: ervincaravaliibarra/bdgaleria-6:latest
+    environment:
+      - POSTGRES_DB=projecto
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=Ec94
+    ports:
+      - "5433:5432"
+    volumes:
+      - db_data_volume:/var/lib/postgresql/data
+
+  pgadmin:
+    build:
+      context: .
+      dockerfile: Dockerfile.pgadmin
+    image: ervincaravaliibarra/pgadmin-galeria-6:latest
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ervin.caravali@correounivalle.edu.co
+      PGADMIN_DEFAULT_PASSWORD: Ec94
+    ports:
+      - "90:80"
+    depends_on:
+      - db
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+
+volumes:
+  db_data_volume:
+  pgadmin_data:

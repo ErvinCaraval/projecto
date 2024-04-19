@@ -1,0 +1,8 @@
+# Dockerfile para la imagen de la base de datos PostgreSQL
+
+FROM postgres:16-alpine3.17
+
+# Establecer variables de entorno para la base de dato
+ENV POSTGRES_DB=projecto
+ENV POSTGRES_USER=postgres
+ENV POSTGRES_PASSWORD=Ec94
