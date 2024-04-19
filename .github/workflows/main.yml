@@ -7,7 +7,7 @@ on:
 
 jobs:
   build_and_push:
-    runs-on: alpine3.17
+    runs-on: alpine-19
 
     steps:
       - name: Checkout code
