@@ -7,7 +7,7 @@ on:
 
 jobs:
   build_and_push:
-    runs-on: ubuntu:bionic # Cambiado a una versión específica de Alpine
+    runs-on: ubuntu-bionic # Cambiado a una versión específica de Alpine
 
     steps:
       - name: Checkout code
