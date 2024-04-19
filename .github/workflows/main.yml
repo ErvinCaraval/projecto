@@ -7,11 +7,19 @@ on:
 
 jobs:
   build_and_push:
-    runs-on: alpine-19
+    runs-on: alpine-3.14 # Cambiado a una versión específica de Alpine
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+
+      - name: Cache Docker layers # Añadida acción para caché de capas Docker
+        uses: actions/cache@v2
+        with:
+          path: /root/.cache/docker
+          key: ${{ runner.os }}-docker-${{ hashFiles('**/Dockerfile') }}
+          restore-keys: |
+            ${{ runner.os }}-docker-
 
       - name: Build and push images
         env:
