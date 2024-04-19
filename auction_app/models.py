@@ -10,7 +10,7 @@ class Auction(models.Model):
     auction_description = models.TextField()
     start_date = models.DateTimeField(auto_now_add=True)
     end_date = models.DateTimeField(null=True)  # Permitir valores nulos
-    status = models.CharField(max_length=20, default='active')
+    status = models.CharField(max_length=20, choices=(('active', _('Active')), ('inactive', _('Inactive'))), default='active')
 
     class Meta:
         db_table = 'auctions'
@@ -25,7 +25,7 @@ class Auction(models.Model):
     def clean(self):
         super().clean()
         if self.end_date and self.start_date and self.end_date <= self.start_date:
-            raise ValidationError("La fecha de finalización debe ser posterior a la fecha de inicio.")
+            raise ValidationError(_("La fecha de finalización debe ser posterior a la fecha de inicio."))
 
 class Artwork(models.Model):
     artwork_id = models.AutoField(primary_key=True)
@@ -38,7 +38,7 @@ class Artwork(models.Model):
     genre = models.CharField(max_length=100)
     description = models.TextField()
     minimum_bid = models.DecimalField(max_digits=10, decimal_places=2, validators=[MinValueValidator(0.01)])
-    status = models.CharField(max_length=20, default='active')
+    status = models.CharField(max_length=20, choices=(('active', _('Active')), ('inactive', _('Inactive'))), default='active')
 
     class Meta:
         db_table = 'artworks'

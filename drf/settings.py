@@ -25,7 +25,8 @@ SECRET_KEY = 'django-insecure-e4h5$(htupo01qm!x3ml0sf0mpg)$=n=)en(-7cqm%*u_2fl)w
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '[::1]', '0.0.0.0']
+
 
 
 # Application definition
@@ -38,8 +39,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'auction_app'
+    'auction_app',
+    
 ]
+
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

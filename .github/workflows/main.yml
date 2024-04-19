@@ -7,18 +7,12 @@ on:
 
 jobs:
   build_and_push:
-    runs-on: ubuntu-latest
+    runs-on: alpine3.17
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: text db
-        run: |
-          docker-compose up -d db  # Iniciar el contenedor de la base de datos en segundo plano
-          sleep 10  # Esperar 10 segundos para que el contenedor se inicie completamente
-          docker-compose ps  # Verificar el estado de los contenedores 
-    #if:sucess() merch and push
       - name: Build and push images
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
@@ -27,4 +21,3 @@ jobs:
           docker-compose build
           echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
           docker-compose push
-          

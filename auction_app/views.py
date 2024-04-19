@@ -1,6 +1,6 @@
 from rest_framework import viewsets
-from .models import Auction, Artwork, Customer, Bid, Admin
 from .serializer import AuctionSerializer, ArtworkSerializer, CustomerSerializer, BidSerializer, AdminSerializer
+from .models import Auction, Artwork, Customer, Bid, Admin
 
 class AuctionViewSet(viewsets.ModelViewSet):
     queryset = Auction.objects.all()
