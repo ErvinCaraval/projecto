@@ -8,8 +8,8 @@ class Auction(models.Model):
     auction_id = models.AutoField(primary_key=True)
     auction_name = models.CharField(max_length=255, verbose_name=_("Nombre de la subasta"))
     auction_description = models.TextField()
-    start_date = models.DateTimeField(auto_now_add=True)
-    end_date = models.DateTimeField(null=True)  # Permitir valores nulos
+    start_date = models.DateTimeField(null=False, blank=False)
+    end_date = models.DateTimeField(null=False ,  blank=False )  # Permitir valores nulos
     status = models.CharField(max_length=20, choices=(('active', _('Active')), ('inactive', _('Inactive'))), default='active')
 
     class Meta:
@@ -51,8 +51,8 @@ class Customer(models.Model):
     full_name = models.CharField(max_length=255)
     email = models.EmailField()
     phone = models.CharField(max_length=20)
-    document_type = models.CharField(max_length=50, blank=True, null=True)
-    document_number = models.CharField(max_length=50, blank=True, null=True)
+    document_type = models.CharField(max_length=50, blank=False, null=False)
+    document_number = models.CharField(max_length=50, blank=False, null=False)
 
     class Meta:
         db_table = 'customers'
@@ -66,7 +66,7 @@ class Bid(models.Model):
     artwork = models.ForeignKey(Artwork, on_delete=models.CASCADE)
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
     bid_value = models.DecimalField(max_digits=10, decimal_places=2)
-    bid_timestamp = models.DateTimeField(auto_now_add=True)
+    bid_timestamp = models.DateTimeField(null=False)
 
     class Meta:
         db_table = 'bids'
