@@ -1,7 +1,7 @@
 name: Docker Compose
 
 on:
-  pull_request:
+  push:
     branches:
       - main
 
@@ -12,6 +12,16 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+
+      - name: text db
+        run: |
+          docker-compose up -d db  # Iniciar el contenedor de la base de datos en segundo plano
+          sleep 10  # Esperar 10 segundos para que el contenedor se inicie completamente
+          docker-compose ps  # Verificar el estado de los contenedores 
+
+      - name: Run tests
+        run: |
+          docker-compose exec web python manage.py test auction_app.tests
 
       - name: Build and push images
         env:
